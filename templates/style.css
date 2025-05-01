@@ -1,0 +1,173 @@
+@import "compass/css3";
+
+$background: #F2D2FF;
+$lightest-purple: #d3d7f3;
+$light-purple: #A8B0E7;
+$purple: #4A5286;
+$dark-purple: #25294a;
+$darkest-purple: red;
+
+$outline: 2px solid $darkest-purple;
+
+$window-animate-time: 3s;
+
+body {
+  background-color: $background;
+  overflow: hidden;
+}
+
+.noise-mask {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 10;
+}
+
+.road {
+  width: 120%;
+  height: 2px;
+  background-color: $darkest-purple;
+  top: 370px;
+  left: 0;
+  position: absolute;
+}
+
+.bus {
+  position: relative;
+  width: 500px;
+  margin: 0 auto;
+  top: 100px;
+  animation: bus-bounce .75s linear infinite;
+}
+
+.dashboard {
+  background-color: $purple;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border: $outline;
+  height: 95px;
+  width: 80px;
+  position: absolute;
+  left: 80px;
+  top: 45px;
+  transform: skew(-7deg);
+}
+
+.cabin {
+  background-color: $purple;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 30px;
+  border: $outline;
+  border-bottom: 0;
+  height: 95px;
+  width: 410px;
+  position: absolute;
+  right: 0;
+  top: 45px;
+}
+
+.chassy-front-top {
+  width: 450px;
+  position: absolute;
+  height: 60px;
+  top: 140px;
+  border-top-left-radius: 30px;
+  background-color: $purple;
+  border: $outline;
+}
+
+.chassy-front-bottom {
+  width: 450px;
+  position: absolute;
+  height: 30px;
+  top: 200px;
+  background-color: #656FAF;
+  border: $outline;
+}
+
+.wheel-well-front {
+  width: 75px;
+  position: absolute;
+  left: 75px;
+  height: 35px;
+  top: 195px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: $light-purple;
+  border: $outline;
+}
+
+.wheel {
+  height: 60px;
+  width: 60px;
+  display: block;
+  border-radius: 100px;
+  border: $outline;
+  position: absolute;
+}
+
+.left-wheel {
+  background-color: $dark-purple;
+  z-index: 5;
+}
+
+.right-wheel {
+  background-color: $darkest-purple;
+  z-index: 0;
+}
+
+.bumper {
+  width: 60px;
+  position: absolute;
+  height: 20px;
+  top: 215px;
+  left: -10px;
+  border: $outline;
+  border-radius: 5px;
+  background-color: $dark-purple;
+  z-index: 10;
+  animation: bumper-move .7s ease-in-out infinite;
+}
+
+@keyframes bus-bounce {
+  0% { top: 100px; }
+  20% { top: 99px; }
+  40% { top: 100px; }
+  75% { top: 98px; }
+  100% { top: 100px; }
+}
+
+@keyframes bumper-move {
+  0% { top: 215px; }
+  25% { top: 216px; }
+  50% { top: 215px; }
+  75% { top: 214px; }
+  100% { top: 215px; }
+}
+
+p.speech {
+  position: fixed;
+  bottom: 50px;
+  right: 500px;
+  width: 200px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  background-color: #fff;
+  border: 4px solid #666;
+  border-radius: 30px;
+  box-shadow: 2px 2px 4px #888;
+}
+
+p.parents {
+  position: fixed;
+  bottom: 50px;
+  right: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  background-color: #fff;
+  border: 4px solid #666;
+  border-radius: 30px;
+  box-shadow: 2px 2px 4px #888;
+}

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Payment</title>
+    <style>
+        /* Body and Global Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 150px;
+            background-color: #f8f9fa;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar img {
+            height: 80px;
+            cursor: pointer;
+        }
+
+        .navbar .links a {
+            color: black;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 0 10px;
+        }
+
+        /* Ticket and Payment Section Container */
+        .container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 40px auto;
+            gap: 20px;
+        }
+
+        /* Ticket Details Styling */
+        .ticket-box {
+            flex: 2;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .ticket-box h2 {
+            margin: 0;
+            font-size: 22px;
+            color: #0369a1;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .ticket-box .info {
+            margin: 20px 0;
+        }
+
+        .ticket-box .info div {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .ticket-box .info div span {
+            color: #555;
+            display: block;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .ticket-box .timeline {
+            margin-top: 20px;
+            padding-left: 15px;
+            border-left: 2px dashed #0369a1;
+        }
+
+        .ticket-box .timeline div {
+            margin-bottom: 10px;
+        }
+
+        .ticket-box .timeline div h4 {
+            font-size: 14px;
+            color: #0369a1;
+            margin: 0;
+        }
+
+        .ticket-box .timeline div p {
+            font-size: 12px;
+            color: #555;
+            margin: 5px 0 0;
+        }
+
+        /* Payment Box Styling */
+        .payment-box {
+            flex: 1;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 50%;
+        }
+
+        .payment-box h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #0369a1;
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .payment-box .price-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .payment-box .price-item span {
+            font-weight: bold;
+        }
+
+        .payment-box .price-total {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2a9df4;
+            margin-top: 15px;
+        }
+
+        .payment-box .coupon {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .payment-box .coupon input {
+            width: 70%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .payment-box .coupon button {
+            background-color: #0369a1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        .payment-box .coupon button:hover {
+            background-color: #025d8c;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="static/logo.png" alt="Logo">
+        </div>
+        <div class="links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Ticket and Payment Section -->
+    <div class="container">
+        <!-- Ticket Details -->
+        <div class="ticket-box">
+            <h2>Bus Details</h2>
+            <div class="info">
+                <div>
+                    <strong>From → To:</strong>
+                    <span>Surat → Rajkot</span>
+                </div>
+                <div>
+                    <strong>Departure:</strong>
+                    <span>18:30</span>
+                </div>
+                <div>
+                    <strong>Arrival:</strong>
+                    <span>04:15</span>
+                </div>
+                <div>
+                    <strong>Seat No(s):</strong>
+                    <span>15 (SL)</span>
+                </div>
+            </div>
+            <div class="timeline">
+                <div>
+                    <h4>Boarding Time & Address</h4>
+                    <p>6:40 PM Kamrej-Bhawani Mandir Nr ST Bus Stop</p>
+                </div>
+                <div>
+                    <h4>Dropping Time & Address</h4>
+                    <p>4:20 AM Gondal Chokdi</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Summary -->
+        <div class="payment-box">
+            <h3>Price Summary</h3>
+            <div class="price-item">
+                <span>Base Fare:</span>
+                <span>₹700</span>
+            </div>
+            <div class="price-item">
+                <span>GST:</span>
+                <span>₹35</span>
+            </div>
+            <div class="price-item">
+                <span>Discount:</span>
+                <span>-₹49</span>
+            </div>
+            <div class="price-total">Grand Total: ₹686</div>
+            <div class="coupon">
+                <input type="text" placeholder="Enter coupon code">
+                <button>Apply</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

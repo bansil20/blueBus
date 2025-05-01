@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="icon" href="static/title_logo2.png" type="image/png">
+    
+    <style>
+
+                /* Navbar Styling */
+                .navbar {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 15px 150px;
+                    background-color: #f8f9fa;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    position: relative; /* Added for bus animation */
+                }
+        
+                .navbar img {
+                    height: 80px;
+                }
+        
+                
+        nav .links {
+            display: flex;
+        }
+        
+        nav .links a{
+            color: black;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 0 10px;
+        }
+        
+        nav .links a:hover{
+            text-decoration: underline;
+        }
+        
+        nav .buttons{
+            width: 250px;
+            height: 10vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        nav .buttons button{
+            margin: 0 5px;
+            width: 40%;
+            height: 5vh;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            background-color: rgb(7,113,219);
+            transition: 0.2s linear;
+        }
+        
+        .buttons button:hover{
+            color: rgb(7,113,219);
+            background-color: transparent;
+            border: 2px solid rgb(7,113,219);
+            box-shadow: 0 0 10px 4px rgb(7,113,219);
+        }
+        
+        
+                .navbar ul {
+                    list-style: none;
+                    display: flex;
+                    align-items: center;
+                    margin: 0;
+                    padding: 0;
+                }
+        
+                .navbar li {
+                    position: relative;
+                    margin-right: 20px;
+                }
+        
+                .navbar a {
+                    color: black;
+                    text-decoration: none;
+                    padding: 10px 15px;
+                    display: block;
+                }
+        
+                .navbar a:hover {
+                    background-color: #e9ecef;
+                    border-radius: 5px;
+                }
+        
+               
+        
+        
+                /* Dropdown Styling */
+                .dropdown {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    background-color: #ffffff;
+                    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+                    z-index: 1;
+                    min-width: 180px;
+                    border: 1px solid #ccc; /* Adding border for clarity */
+                   
+                    
+                }
+        
+                .dropdown img{
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                    vertical-align: middle; /* Align image and text in the middle */
+                }
+        
+                .dropdown a {
+                    padding: 10px 20px;
+                    white-space: nowrap;
+                    
+                }
+        
+                .navbar li:hover .dropdown {
+                    display: block;
+                }
+        
+                /* Login button styling */
+                .login > a {
+                    background-color: #2a4fa6;
+                    color: white;
+                    border-radius: 40px;
+                    padding: 10px 20px;
+                    text-align: center;
+                    transition: background-color 0.3s ease;
+                }
+        
+                .login > a:hover {
+                    background-color: #2a4fa6;
+                    border-radius: 40px;
+                }
+        
+
+
+
+
+
+
+            
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* General Styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 150px;
+            background-color: #f8f9fa;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .navbar img {
+            height: 74px;
+            cursor: pointer; /* Indicates clickable logo */
+        }
+        
+        nav .links {
+            display: flex;
+        }
+        
+        nav .links a {
+            color: black;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 0 10px;
+        }
+        
+        nav .links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* blue nav */
+        .search-navbar {
+            display: flex;
+            justify-content: space-around; /* Space between the items */
+            align-items: flex-start; /* Align items to the start */
+            padding-top: 2%;
+            padding-bottom: 2%;
+            padding-left: 16%;
+            padding-right: 16%; /* Adjust padding for better spacing */
+            background: linear-gradient(to right, #3A7BD5, #00D2FF);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Input Container Styling */
+        .input-container {
+            display: flex;
+            flex-direction: column; /* Stack label above input */
+            align-items: center; /* Center align input elements */
+            margin: 0 10px; /* Space between containers */
+        }
+        
+        .input-container label {
+            margin-bottom: 5px; /* Space between label and input */
+            color: white; /* Change label color for better visibility */
+            font-weight: bold; /* Make the label text bold */
+        }
+        
+        .search-navbar input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px; /* Fixed width for inputs */
+        }
+        
+
+
+        
+        /*left side*/
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        
+        /* Sidebar Styling */
+        .sidebar {
+            width: 300px; /* Width of the sidebar */
+            background-color: #b2b6b7; /* Light background color */
+            padding: 20px; /* Space around the sidebar */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            position: relative; /* Relative positioning */
+            margin-top: 20px; /* Space above sidebar */
+        }
+        
+        .sidebar-header {
+            margin-bottom: 20px; /* Space below header */
+        }
+        
+        .sidebar-header h2 {
+            font-size: 1.5rem; /* Header font size */
+        }
+        
+        .sidebar-card {
+            background-color: white; /* Card background color */
+            border-radius: 8px; /* Rounded corners */
+            padding: 15px; /* Space around card */
+            margin-bottom: 20px; /* Space below each card */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Card shadow */
+        }
+        
+        .sidebar-card h3 {
+            font-size: 1.2rem; /* Card title font size */
+            margin-bottom: 10px; /* Space below title */
+        }
+        
+        .sidebar-card p {
+            font-size: 0.9rem; /* Card description font size */
+            color: #6c757d; /* Secondary text color */
+            margin-bottom: 10px; /* Space below description */
+        }
+        
+        .option-card {
+            background-color: #e9ecef; /* Light gray background for options */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px; /* Space around option */
+            margin-bottom: 10px; /* Space below each option card */
+        }
+        
+        .filter-btn {
+            background-color: #007bff; /* Button background color */
+            color: white; /* Button text color */
+            border: none; /* Remove border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px; /* Space around button */
+            cursor: pointer; /* Pointer cursor on hover */
+            transition: background-color 0.2s; /* Smooth background color transition */
+        }
+        
+        .filter-btn:hover {
+            background-color: #0056b3; /* Darker background on hover */
+        }
+        
+        .sidebar-card label {
+            display: block; /* Block display for labels */
+            margin-bottom: 5px; /* Space below label */
+        }
+
+
+
+
+        /*middle*/
+/* General Styling */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-color: #f2f4f8; /* Light background for contrast */
+}
+
+/* Main Container */
+.container {
+    display: flex; /* Enable flexbox layout */
+    justify-content: center; /* Center the content horizontally */
+    padding: 20px; /* Padding around the container */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 300px; /* Width of the sidebar */
+    background-color: #ffffff; /* White background for sidebar */
+    padding: 20px; /* Space around the sidebar */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    border-radius: 8px; /* Rounded corners */
+}
+
+/* Main Content Styling */
+.main-content {
+    flex-grow: 1; /* Allow the main content to take available space */
+    max-width: 800px; /* Set a max width for the main content */
+    margin-left: 20px; /* Space between sidebar and main content */
+}
+
+/* Card Styles */
+.card {
+    background-color: white; /* Card background color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 15px; /* Space around card */
+    margin-bottom: 20px; /* Space below each card */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Card shadow */
+    transition: transform 0.2s; /* Animation on hover */
+}
+
+/* Hover Effect for Cards */
+.card:hover {
+    transform: translateY(-5px); /* Raise card slightly on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+/* Card Header Styling */
+.card-header {
+    display: flex;
+    justify-content: space-between; /* Space between title and details */
+    align-items: center; /* Align items vertically */
+}
+
+.card-header h3 {
+    font-size: 1.5rem; /* Header font size */
+    color: #333; /* Dark color for text */
+}
+
+.card-header p {
+    font-size: 0.9rem; /* Smaller font size for details */
+    color: #666; /* Lighter color for details */
+}
+
+/* Card Body Styling */
+.card-body {
+    margin-top: 15px; /* Space above the body */
+}
+
+.card-info {
+    display: flex;
+    justify-content: space-between; /* Space between departure, duration, and arrival */
+    margin: 10px 0; /* Space between info sections */
+}
+
+.card-info span {
+    font-size: 1rem; /* Standard font size for info */
+    color: #333; /* Dark color for text */
+}
+
+/* Card Availability Styling */
+.card-availability {
+    display: flex;
+    justify-content: space-between; /* Space between availability and price */
+    align-items: center; /* Align items vertically */
+}
+
+.price {
+    font-size: 1.2rem; /* Slightly larger font size for price */
+    color: #007BFF; /* Blue color for price */
+}
+
+/* Card Footer Styling */
+.card-footer {
+    display: flex;
+    justify-content: space-between; /* Space between buttons and info links */
+    align-items: center; /* Align items vertically */
+    margin-top: 15px; /* Space above the footer */
+}
+
+.select-seats-btn {
+    background-color: rgb(7, 113, 219); /* Button color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Padding around the button */
+    cursor: pointer; /* Pointer on hover */
+    transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.select-seats-btn:hover {
+    background-color: rgb(5, 90, 165); /* Darker blue on hover */
+}
+
+/* Info Links Styling */
+.info-links a {
+    color: #007BFF; /* Link color */
+    text-decoration: none; /* Remove underline */
+    font-size: 0.9rem; /* Smaller font size for links */
+}
+
+.info-links a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+
+
+
+    /* Search Button */
+    .search-btn {
+        padding: 10px 30px;
+        background-color: #ff6600;
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .search-btn:hover {
+        background-color: #e65c00;
+    }
+
+     /* Swap Button */
+     .swap-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 5px 10px;
+        margin: 0 10px; /* Adjust margin as needed */
+        transition: background-color 0.3s ease;
+    }
+
+    .swap-btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .input-group {
+            flex-direction: column;
+        }
+
+        .divider {
+            display: none;
+        }
+
+        .search-btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+    }
+
+
+
+    /*  blue nav display*/
+    .search-navbar {
+        display: flex; /* Use flexbox */
+        align-items: center; /* Align items vertically centered */
+        gap: 1rem; /* Space between items */
+        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    }
+    
+    .input-container {
+        display: flex;
+        flex-direction: column; /* Stack label above value */
+    }
+    
+    .display-value-container {
+        background-color: #ffffff; /* White background */
+        border: 1px solid #e0e0e0; /* Light gray border */
+        border-radius: 4px; /* Slightly rounded corners */
+        padding: 10px; /* Padding around the text */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    }
+    
+    .display-value {
+        margin: 0; /* Remove default margin */
+        font-size: 16px; /* Adjust font size */
+        color: #333; /* Dark text color */
+    }
+
+
+    
+    
+
+
+
+    .seat {
+        width: 60px;
+        height: 30px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 5px;
+        border-width: 2px;
+        background-color: white;
+        cursor: pointer; /* Add pointer for selectable seats */
+    }
+    
+    .seat.available {
+        background-color: #fff; /* White for available seats */
+        border-color: #ccc; /* Light border for available seats */
+        cursor: pointer; /* Pointer to indicate selectable seats */
+    }
+    
+    .seat.booked {
+        background-color: #d3d3d3; /* Gray for booked seats */
+        cursor: not-allowed; /* No pointer for booked seats */
+        border-color: #999; /* Darker border for booked seats */
+    }
+    
+    .seat.selected {
+        background-color: rgb(74 222 128); /* Green for selected seats */
+        border-color: #38a169; /* Darker green border for selected seats */
+    }
+    
+
+    
+
+
+
+    
+
+    </style>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="static/logo.png" alt="Logo" onclick="goToDashboard()">
+        </div>
+        <script>
+            function goToDashboard() {
+                window.location.href = '/dashboard'; 
+            }
+        </script>
+
+        <ul>
+            <li class="login">
+                {% if user.is_authenticated %}
+                <li class="link">Hello, {{ user.username|capfirst  }}</li>
+                <a href="{% url 'logoutpage' %}" id="logout-button">Logout</a>  
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const logoutButton = document.getElementById('logout-button');
+                        if (logoutButton) {
+                            logoutButton.addEventListener('click', function () {
+                                localStorage.removeItem('recentSearches'); // Clear recent searches from local storage
+                            });
+                        }
+                    });
+                </script>   
+                {% else %}
+                <a href="loginreg" id="loginBtn">Login/Signup</a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+
+
+    
+    
+
+    <!-- Horizontal Search Navbar -->
+    <form method="POST" action="{% url 'search' %}">
+        {% csrf_token %}
+        <nav class="search-navbar">
+            <div class="input-container">
+                <label for="from-city">Source City</label>
+                <div class="display-value-container">
+                    <b>
+                        <input type="hidden" name="from_source" value="{{ selected_from_source }}">
+                        <p id="from-city" class="display-value">{{ selected_from_source|capfirst }}</p>
+                        
+                    </b>
+                </div>
+            </div>
+    
+            <div class="input-container">
+                <label for="to-city">Destination City</label>
+                <div class="display-value-container">
+                    <b>
+                        <input type="hidden" name="to_desti" value="{{ selected_to_desti }}">
+                        <p id="to-city" class="display-value">{{ selected_to_desti|capfirst }}</p>
+                    </b>
+                </div>
+            </div>
+    
+            <div class="input-container">
+                <label for="departure-date">Departure Date</label>
+                <div class="display-value-container">
+                    <b>
+                        <input type="hidden" name="dept_date" value="{{ selected_departure_date }}">
+                        <p id="departure-date" class="display-value">{{ selected_departure_date|capfirst }}</p>
+                    </b>
+                </div>
+            </div>
+        </nav>
+    </form>
+    
+
+
+
+
+    <!-- Sidebar positioned below the search navbar -->
+    <div class="container">
+
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Options</h2>
+            </div>
+            
+            <form method="POST" action="{% url 'search' %}" id="filter-form">
+                {% csrf_token %}  
+                <!-- Hidden inputs to retain original search parameters -->
+                <input type="hidden" name="from_source" value="{{ selected_from_source }}">
+                <input type="hidden" name="to_desti" value="{{ selected_to_desti }}">
+                <input type="hidden" name="dept_date" value="{{ selected_departure_date }}">
+            
+                <div class="sidebar-card">
+                    <h3>Filter</h3>
+                    <p>Apply various filters to your search results.</p>
+                </div>
+            
+                <div class="sidebar-card">
+                    <h3>Live Tracking</h3>
+                    <p>Track GPS enabled buses in real-time.</p>
+                    <label>
+                        <input type="checkbox" name="gps_enabled" checked onchange="document.getElementById('filter-form').submit();"> GPS Enabled Buses
+                    </label>
+                </div>
+            
+                <div class="sidebar-card">
+                    <h3>Bus Type</h3>
+                    <p>Select bus type for your journey.</p>
+                    <div class="option-card">
+                        <label>
+                            <input type="checkbox" name="bus_ac" value="1" {% if request.GET.bus_ac == "1" %}checked{% endif %}
+                            onchange="saveCheckboxState(this);"> AC
+                        </label>
+                    </div>
+                    <div class="option-card">
+                        <label>
+                            <input type="checkbox" name="bus_nonac" value="1" {% if request.GET.bus_nonac == "1" %}checked{% endif %}
+                            onchange="saveCheckboxState(this);"> Non AC
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="sidebar-card">
+                    <h3>Seat Type</h3>
+                    <p>Choose your preferred seat type.</p>
+                    <div class="option-card">
+                        <label>
+                            <input type="checkbox" name="sleeper" value="1" {% if request.GET.sleeper == "1" %}checked{% endif %}
+                            onchange="saveCheckboxState(this);"> Sleeper
+                        </label>
+                    </div>
+                    <div class="option-card">
+                        <label>
+                            <input type="checkbox" name="seater" value="1" {% if request.GET.seater == "1" %}checked{% endif %}
+                            onchange="saveCheckboxState(this);"> Seater
+                        </label>
+                    </div>
+                </div>
+        </form>
+        
+        <script>
+            // Function to save checkbox state to localStorage and submit the form
+            function saveCheckboxState(checkbox) {
+                localStorage.setItem(checkbox.name, checkbox.checked);
+                document.getElementById('filter-form').submit();
+            }
+        
+            // Restore checkbox states from localStorage when the page loads
+            document.addEventListener("DOMContentLoaded", function() {
+                const checkboxes = document.querySelectorAll('#filter-form input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    const savedState = localStorage.getItem(checkbox.name);
+                    if (savedState !== null) {
+                        checkbox.checked = savedState === "true";  // Restore checkbox state (true or false)
+                    }
+                });
+            });
+        </script>
+            
+        </div>
+    
+
+
+
+    <!-- middle -->
+        <div class="main-content" id="seats-layout-{{ n.id }}">
+            {% for n in searchBusData %}
+            <div class="card">
+                <div class="card-header">
+                    <h3>{{ n.bus_name|capfirst }}</h3>
+                    <p>2 x 1 (36) {{ n.bus_ac_check_text }} {{ n.bus_sleeper_seater_text }}</p>
+                </div>
+                <div class="card-body">
+                    <div class="card-info">
+                        <span class="departure">Departure: <strong>{{ n.departure_date }} {{ n.from_time }}</strong></span>
+                        <span class="duration">Duration: <strong>{{ n.time_difference }}</strong></span>
+                        <span class="arrival">Arrival: <strong>{{ n.arrival_date }} {{ n.to_time }}</strong></span>
+                    </div>
+                    <div class="card-availability">
+                        <p>{{ n.available_seats }} Seat(s) left</p>
+                        <div class="price">
+                            <span class="starting-price">Starting From</span>
+                            <span class="amount">₹{{ n.bus_price }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="select-seats-btn" id="toggle-seats-btn-{{ n.id }}" onclick="showSeatsLayout('{{ n.id }}', '{{ n.available_seats }}', '{{ n.booked_seat_numbers }}')" data-price="{{ n.bus_price }}">
+                        Show Seats
+                    </button>
+                    <div class="info-links">
+                        <a href="#">Boarding & Dropping Point</a>
+                        <a href="#">Cancellation Policy</a>
+                    </div>
+                </div>
+        
+                <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg" id="seats-layout-{{ n.id }}" style="display: none;">
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <h1 class="text-xl font-bold">{{ n.available_seats }} Seats Available</h1>
+                            <p class="text-gray-500">Click on seat to select/deselect</p>
+                        </div>
+                    </div>
+        
+                    <div class="flex space-x-4 mb-4">
+                        <div class="flex-1">
+                            <div class="flex flex-wrap mb-4">
+                                <div class="w-full text-center mb-2">Upper</div>
+                                <div class="flex flex-wrap justify-center" id="upper-seats-{{ n.id }}">
+                                    <!-- Generate upper seats dynamically -->
+                                    {% for seat in n.upper_seats %}
+                                        <div class="seat" id="seat-{{ n.id }}-{{ seat }}" onclick="toggleSeatSelection('{{ n.id }}', '{{ seat }}')">{{ seat }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap mb-4">
+                                <div class="w-full text-center mb-2">Lower</div>
+                                <div class="flex flex-wrap justify-center" id="lower-seats-{{ n.id }}">
+                                    <!-- Generate lower seats dynamically -->
+                                    {% for seat in n.lower_seats %}
+                                        <div class="seat" id="seat-{{ n.id }}-{{ seat }}" onclick="toggleSeatSelection('{{ n.id }}', '{{ seat }}')">{{ seat }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="w-full flex justify-center items-center mt-4">
+                                    <i class="fas fa-steering-wheel text-2xl"></i>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="w-1/3">
+                            <!-- <div class="mb-4">
+                                <input type="text" placeholder="Search Boarding Point" class="w-full p-2 border border-gray-300 rounded">
+                            </div> -->
+                            
+                            <div class="mb-4" style="padding-top: 50%;">
+                                <div class="flex justify-between items-center">
+                                    <div>Seat Selected :</div>
+                                    <div class="bg-gray-200 px-4 py-2 rounded" id="selected-seats-{{ n.id }}">None</div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div>Base Fare :</div>
+                                <div class="bg-gray-300 text-black-800 px-4 py-2 rounded" id="total-fare-{{ n.id }}">₹0</div>
+                                &nbsp;
+                                <form method="POST" action="{% url 'tic_payment' n.id%}" id="booking-form-{{ n.id }}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="bus_name" value="{{ n.bus_name }}">
+                                    <input type="hidden" name="from_source" value="{{ selected_from_source  }}">
+                                    <input type="hidden" name="to_desti" value="{{selected_to_desti }}">
+                                    <input type="hidden" name="from_time" value="{{ n.from_time }}">
+                                    <input type="hidden" name="to_time" value="{{ n.to_time }}">
+                                    <input type="hidden" name="bus_ac_check_text" value="{{ n.bus_ac_check_text }}">
+                                    <input type="hidden" name="bus_sleeper_seater_text" value="{{ n.bus_sleeper_seater_text }}">
+                                    <input type="hidden" name="bus_price" value="{{ n.bus_price }}">
+                                    <input type="hidden" name="selected_seats" id="selected-seats-input-{{ n.id }}">
+                                    <button type="submit" id="continue-btn-{{ n.id }}" class="bg-gray-300 text-gray-500 px-4 py-2 rounded" disabled>Continue</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="flex justify-end space-x-2">
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-gray-300 rounded-full mr-2"></div>
+                            <div>Available Seats</div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-gray-400 rounded-full mr-2"></div>
+                            <div>Booked Seats</div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-green-400 rounded-full mr-2"></div>
+                            <div>Selected Seats</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <script>
+            const selectedSeats = {}; // Object to store selected seats for each bus ID
+
+
+            function toggleSeatSelection(busId, seat) {
+                const seatId = `seat-${busId}-${seat}`;
+                const seatElement = document.getElementById(seatId);
+        
+                // Toggle selected state
+                if (seatElement.classList.contains('selected')) {
+                    seatElement.classList.remove('selected');
+                    delete selectedSeats[busId][seat];
+                } else {
+                    seatElement.classList.add('selected');
+                    selectedSeats[busId] = selectedSeats[busId] || {};
+                    selectedSeats[busId][seat] = seat;
+                }
+        
+                // Update displayed selected seats and fare
+                updateSelectedSeatsDisplay(busId);
+                updateFare(busId);
+            }
+        
+            function updateSelectedSeatsDisplay(busId) {
+                const selectedSeatIds = Object.keys(selectedSeats[busId] || {}).join(', ') || 'None';
+                document.getElementById(`selected-seats-${busId}`).innerText = selectedSeatIds;
+                
+                // Update the hidden input for booking
+                document.getElementById(`selected-seats-input-${busId}`).value = selectedSeatIds;
+        
+                /*// Enable or disable the 'Continue' button
+                const continueBtn = document.getElementById(`continue-btn-${busId}`);
+                continueBtn.disabled = selectedSeatIds === 'None';
+                continueBtn.classList.toggle('text-gray-500', selectedSeatIds === 'None');
+                continueBtn.classList.toggle('text-black', selectedSeatIds !== 'None');*/
+            }
+        
+            function updateFare(busId) {
+                const baseFare = parseFloat(document.querySelector(`#toggle-seats-btn-${busId}`).getAttribute('data-price'));
+                const selectedSeatCount = Object.keys(selectedSeats[busId] || {}).length;
+                const totalFare = baseFare * selectedSeatCount;
+        
+                document.getElementById(`total-fare-${busId}`).innerText = `₹${totalFare}`;
+            }
+        </script>
+        
+        
+        
+        <script>
+            let allSelectedSeats = []; // Object to store selected seats for each bus ID
+
+            function showSeatsLayout(busId, availableSeats,book_seats) {
+                
+                const button = document.getElementById('toggle-seats-btn-' + busId);
+                const layout = document.getElementById('seats-layout-' + busId);
+                    
+                // Toggle visibility using CSS classes
+                if (layout.style.display === 'block' || layout.style.display === '') {
+                    layout.style.display = 'none'; // Hide the layout
+                    button.textContent = 'Show Seats'; // Change button text back to 'Show Seats'
+                } else {
+                    // Hide all seat layouts first
+                    document.querySelectorAll('.max-w-4xl').forEach(function(layout) {
+                        layout.style.display = 'none';
+                    });
+                    
+                    // Show the seat layout for the selected bus
+                    layout.style.display = 'block'; // Show the layout
+                    button.textContent = 'Hide Seats'; // Change button text to 'Hide Seats'
+                    
+                    // Generate seats for the selected bus only if they haven't been created yet
+                    const upperSeatsContainer = document.getElementById('upper-seats-' + busId);
+                    const lowerSeatsContainer = document.getElementById('lower-seats-' + busId);
+                    
+                    // Check if seats already exist, if not create them
+                    if (upperSeatsContainer.children.length === 0) {
+                        createSeats(upperSeatsContainer, 1,  18, 12,availableSeats,busId,book_seats);
+                    }
+                    if (lowerSeatsContainer.children.length === 0) {
+                        createSeats(lowerSeatsContainer, 19, 36, 12, availableSeats,busId,book_seats);
+                    }
+                }            
+               
+            }
+            
+            
+            function createSeats(container, start, end, seatsPerRow, availableSeats, busId,book_seats) {
+                const bookedSeats = book_seats.split(',').map(Number); // Fetch booked seats from server or model converts to string to array of numbers
+                // jo bookedseats string ma hoi to eg 18 numbeer ni seat book karso to 1,8,18 aa 3 seat book thayeli dekhad se so array ma hovu joi 
+               
+                console.log('Test Booked Seats:', bookedSeats);
+
+                 // Initialize allSelectedSeats for the bus if not already done
+                if (!allSelectedSeats[busId]) {
+                    allSelectedSeats[busId] = []; // Ensure it's an array
+                }
+                const previouslySelectedSeats = allSelectedSeats[busId] || []; // Persist previously selected seats
+                console.log('Test previouslySelectedSeats :', bookedSeats);
+                container.innerHTML = ''; // Clear the container
+            
+                for (let i = start; i <= end; i++) {
+                    const seat = document.createElement('div');
+                    seat.className = 'seat';
+                    seat.textContent = i;
+                    
+                    
+
+                    // Highlight booked seats
+                    if (bookedSeats.includes(i)) {
+                        console.log(`Seat ${i} is booked.`);
+                        seat.classList.add('booked');
+                    } else  {
+                        // Highlight available seats
+                        seat.classList.add('available');
+            
+                        // Highlight previously selected seats
+                        if (previouslySelectedSeats.includes(i)) {
+                            seat.classList.add('selected');
+                        }
+            
+                        seat.addEventListener('click', function() {
+                            this.classList.toggle('selected'); // AA line this seat select thai ne green color thai che
+                            updateContinueButton(busId); // Update button state
+                            updateSelectedSeats(busId); // Update seat display
+                            
+                           
+                            const seatIndex = allSelectedSeats[busId].indexOf(i);
+
+
+                            if (seatIndex > -1) {
+                                allSelectedSeats[busId].splice(seatIndex, 1); // Remove if already selected
+                            } else {
+                                allSelectedSeats[busId].push(i); // Add to selected seats
+                            }
+                        });
+                    } 
+            
+                    container.appendChild(seat);
+            
+                    // Add break lines for row alignment
+                    if ((i - start + 1) % seatsPerRow === 0) {
+                        container.appendChild(document.createElement('br'));
+                        container.appendChild(document.createElement('br'));
+                        container.appendChild(document.createElement('br'));
+                    }
+                }
+            }
+            
+            function updateContinueButton(busId) {
+                const continueButton = document.getElementById(`continue-btn-${busId}`);
+                const totalFareElement = document.getElementById(`total-fare-${busId}`);
+                const selectedSeatsInput = document.getElementById(`selected-seats-input-${busId}`);
+                const selectedSeatsDisplay = document.getElementById(`selected-seats-${busId}`);
+                
+                const pricePerSeat = parseFloat(document.querySelector(`#toggle-seats-btn-${busId}`).getAttribute('data-price'));
+                const selectedSeats = document.querySelectorAll(`#upper-seats-${busId} .seat.selected, #lower-seats-${busId} .seat.selected`);
+                const totalPrice = document.querySelector(`#booking-form-${busId} input[name="bus_price"]`)//for tic_payment final price
+
+                
+                const totalFare = selectedSeats.length * pricePerSeat;
+                totalFareElement.textContent = `₹${totalFare}`;
+
+                // Update the hidden input field for bus_price
+                totalPrice.value = totalFare;
+
+            
+                const seatNumbers = Array.from(selectedSeats).map(seat => seat.textContent).join(',');
+                console.log('seatNumbers detected', seatNumbers);
+
+                selectedSeatsInput.value = seatNumbers;
+                selectedSeatsDisplay.textContent = seatNumbers;
+
+                
+                
+            
+                if (selectedSeats.length > 0) {
+                    continueButton.classList.remove('bg-gray-300', 'text-gray-500');
+                    continueButton.classList.add('bg-green-500', 'text-white');
+                    continueButton.disabled = false;
+                } else {
+                    continueButton.classList.add('bg-gray-300', 'text-gray-500');
+                    continueButton.classList.remove('bg-green-500', 'text-white');
+                    continueButton.disabled = true;
+                }
+            }
+            
+            
+            function updateSelectedSeats(busId) {
+                const selectedSeatsDisplay = document.getElementById(`selected-seats-${busId}`);
+                const selectedSeatsInput = document.getElementById(`selected-seats-input-${busId}`);
+                
+                // Get all selected seats 
+                const selectedSeats = document.querySelectorAll(`#upper-seats-${busId} .seat.selected, #lower-seats-${busId} .seat.selected`);
+                
+                // Map to integers and sort correctly
+                const seatNumbers = Array.from(selectedSeats)
+                    .map(seat => parseInt(seat.textContent)) // Convert to integers
+                    .sort((a, b) => a - b); // Sort numerically
+                
+                // Update the display
+                const seatNumbersStr = seatNumbers.join(', ') || 'None';
+                selectedSeatsDisplay.textContent = seatNumbersStr;
+                
+                // Update the hidden input for the booking form
+                selectedSeatsInput.value = seatNumbers.join(',');
+            }
+            
+            
+            
+        </script>
+      
+    </div>
+
+  
+</body>
+</html>
+
+                       

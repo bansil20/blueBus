@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Bus Ticket</title>
+    <link rel="icon" href="static/title_logo2.png" type="image/png" >
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* General Styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+          
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 150px;
+            background-color: #f8f9fa;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .navbar img {
+            height: 80px;
+        }
+
+        
+nav .links {
+    display: flex;
+}
+
+nav .links a{
+    color: black;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin: 0 10px;
+}
+
+nav .links a:hover{
+    text-decoration: underline;
+}
+
+nav .buttons{
+    width: 250px;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav .buttons button{
+    margin: 0 5px;
+    width: 40%;
+    height: 5vh;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    background-color: rgb(7,113,219);
+    transition: 0.2s linear;
+}
+
+.buttons button:hover{
+    color: rgb(7,113,219);
+    background-color: transparent;
+    border: 2px solid rgb(7,113,219);
+    box-shadow: 0 0 10px 4px rgb(7,113,219);
+}
+
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar li {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .navbar a {
+            color: black;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+
+        .navbar a:hover {
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+
+       
+
+
+        /* Dropdown Styling */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            background-color: #ffffff;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            min-width: 180px;
+            border: 1px solid #ccc; 
+           
+            
+        }
+
+        .dropdown img{
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            vertical-align: middle; /* Align image and text in the middle */
+        }
+
+        .dropdown a {
+            padding: 10px 20px;
+            white-space: nowrap;
+            
+        }
+
+        .navbar li:hover .dropdown {
+            display: block;
+        }
+
+        /* Login button styling */
+        .login > a {
+            background-color: #2a4fa6;
+            color: white;
+            border-radius: 40px;
+            padding: 10px 20px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .login > a:hover {
+            background-color: #2a4fa6;
+            border-radius: 40px;
+        }
+
+     
+
+        /* Container for the blue section */
+        .search-container {
+            background: linear-gradient(to right, #3A7BD5, #00D2FF);
+            padding-top: 3%;
+            padding-bottom: 2%;
+            padding-left: 16%;
+            padding-right: 16%;
+            border-radius: 10px;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            height: 26%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-box {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            flex: 1;
+            padding: 0 10px;
+            cursor: pointer; /* Make the entire input box clickable */
+        }
+
+        .input-box label {
+            font-size: 14px;
+            font-weight: bold;
+            color: gray;
+            margin-bottom: 5px;
+        }
+
+        .input-box input, .dropdown-header {
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            background-color: transparent;
+        }
+
+        .input-box input:focus, .dropdown-header {
+            background-color: rgba(0, 0, 0, 0.05); /* Add subtle highlight when focused */
+        }
+
+        .divider {
+            width: 1px;
+            height: 50px;
+            background-color: #ddd;
+            margin: 0 15px;
+        }
+        
+        .horizontal_divider {
+            width: auto;
+            height: 1px;
+            background-color: #ddd;
+            margin: 0 15px;
+        }
+
+        /* Search Button */
+        .search-btn {
+            padding: 10px 30px;
+            background-color: #ff6600;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background-color: #e65c00;
+        }
+
+        /* Custom dropdown */
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+        }
+
+        .dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .dropdown-header::after {
+            content: '\25BC'; /* Arrow down symbol */
+            font-size: 12px;
+        }
+
+        .dropdown-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: none;
+            z-index: 1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+        }
+
+        .dropdown-list li {
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-list li:hover {
+            background-color: #f0f0f0;
+        }
+
+        .dropdown-list li::before {
+            content: '\1F4CD'; /* Location pin icon */
+            margin-right: 10px;
+        }
+
+        .custom-dropdown.open .dropdown-list {
+            display: block;
+        }
+
+        /* Optional customization for the calendar */
+        .flatpickr-calendar {
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .flatpickr-day.selected, .flatpickr-day.today {
+            background-color: #4facfe;
+            color: white;
+        }
+        /* Swap Button */
+        .swap-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px 10px;
+            margin: 0 10px; /* Adjust margin as needed */
+            transition: background-color 0.3s ease;
+        }
+
+        .swap-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: column;
+            }
+
+            .divider {
+                display: none;
+            }
+
+            .search-btn {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+
+
+        
+
+        .recent-searches {
+            display: flex;
+            gap: 20px;
+            padding-left: 16%;
+            
+        }
+
+        .search-card {
+            background-color: #f8f8f8;
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.2s ease;
+        }
+
+        .search-card:hover {
+            transform: scale(1.05);
+        }
+
+        .search-card .details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-card .route {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .search-card .date {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .search-card .arrow {
+            background-color: #00aaff;
+            color: #fff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+
+        .recent-searches {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+
+
+
+        
+/* Sections for Services, Blog, and About */
+.section {
+    padding-top: 2%;
+    padding-left: 10%; 
+    padding-right: 10%;
+    padding-bottom: 2%;
+    height: auto; /* Just for demonstration */
+    margin: 20px 0;
+    background: white;
+    transition: all 0.3s ease; /* Animation effect */
+}
+
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth; /* Enables smooth scrolling */
+}
+
+
+
+
+
+
+
+.title {
+    font-size: 48px; /* Font size */
+    font-weight: normal; /* Making text bold */
+    margin-bottom: 20px;
+    
+}
+
+.title .highlight {
+    color: #3A7BD5; /* Color for "Popular" */
+    font-weight: bold; /* Normal weight for "Popular" */
+}
+
+
+
+
+
+
+
+
+.highlight {
+    color: #007bff;
+}
+
+.routes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.route {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+    padding: 15px;
+}
+
+.route:hover {
+    transform: translateY(-10px);
+}
+
+.route img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.route-info {
+    flex: 1;
+}
+
+.route-info h3 {
+    font-size: 1.5em;
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.route-info p {
+    color: #666;
+}
+
+
+
+
+
+
+
+
+
+
+
+ 
+        .container {
+    display: flex;
+    justify-content: space-between; 
+    padding-left: 10%; 
+   
+        }
+        .text-content, .image-content {
+            flex: 1; /* Each section takes half of the width */
+        }
+        .text-content {
+            padding-right: 20px;
+            line-height: 1.6;
+        }
+       
+        .image-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding-right: 2%;
+        }
+        .image-content img {
+            width: 250px;
+            height: 90%;
+            border-radius: 15px;
+        }
+
+
+
+
+        .features {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 20px;
+        }
+        .feature {
+            flex: 1;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .feature img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+        }
+        .feature h3 {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #000;
+        }
+        .feature p {
+            color: #555;
+            font-size: 1em;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        footer h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        footer p {
+            margin: 10px 0;
+        }
+        footer .social-icons {
+            margin: 20px 0;
+        }
+        footer .social-icons a {
+            display: inline-block;
+            margin: 0 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+        }
+        footer .social-icons a:hover {
+            color: #ccc;
+        }
+        footer .links {
+            margin-top: 20px;
+        }
+        footer .links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        footer .links a:hover {
+            text-decoration: underline;
+        }
+        footer .copyright {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+
+
+
+
+   
+    </style>
+    
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <!-- Left Side: Logo -->
+        <div class="logo">
+            <img src="static/logo.png" alt="Logo">
+        </div>
+        
+      
+
+        <!-- nav menu -->
+        <div class="links">
+            <div class="link" data-aos="fade-up" data-aos-duration="1200"><a href="#home" >Home</a></div>
+            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="100"><a href="#blog" >Blog</a></div>
+            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200"><a href="#about" >About</a></div>
+            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300"><a href="#services" >Services</a></div>
+            <!-- <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300"><a href="" style="color: black;">Case Studies+</a></div> -->
+            <!-- <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="400"><a href="" style="color: black;">Pages</a></div> -->
+            <!-- <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="600"><a href="" style="color: black;">Contact</a></div> -->
+            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="400"><a href="#services" >Customer Services</a></div>
+
+           
+        </div> 
+        <!-- <div class="buttons">
+            <button data-aos="fade-up" data-aos-duration="1200" data-aos-delay="800">Login</button>
+            <button data-aos="fade-up" data-aos-duration="1200" data-aos-delay="900">Sign up</button>
+        </div>
+
+        Right Side: Navigation Menu -->
+        <ul>
+            <!-- Customer Services Dropdown -->
+           
+
+            <!-- Login Dropdown with Blue Button -->
+            <li class="login">
+                {% if user.is_authenticated %}
+                <b><li  class="link" >Hello, {{user.username|capfirst }}</li></b>
+                <a href="{% url 'logoutpage' %}" id="logout-button">Logout</a>  
+                <script>
+                    document.getElementById('logout-button').addEventListener('click', function () {
+                        localStorage.removeItem('recentSearches'); // Clear recent searches from local storage
+                    });
+                </script> 
+                
+                {%else%}
+                <a href="loginreg"  >Login/Signup</a>
+                {%endif%}
+                <!-- <div class="dropdown">
+                    <a href="loginreg" id="loginBtn"><img src="static/login.gif" alt="Customer Login" >Customer Login / Signup</a>
+                    <a href="#"><img src="static/admin.gif" alt="Admin Login">Admin Login</a>
+                </div> -->
+            </li>
+        </ul>
+    </nav>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+   
+    <script>
+        AOS.init();
+    </script>
+
+    
+
+
+
+    <!-- blue nav -->
+    <div class="search-container">
+        <form method="POST" action="{% url 'search' %}">
+            {% csrf_token %} 
+    
+            <div class="input-group">
+                <!-- From Location Dropdown -->
+                <div class="input-box">
+                    <b><label for="from-city">From</label></b>
+                    <div class="custom-dropdown">
+                        <b><div class="dropdown-header" id="from-city" data-placeholder="Source City"></div></b>
+                        <ul class="dropdown-list" id="from-dropdown">
+                            {% for source in all_sources %}
+                                <li data-value="{{ source }}">{{ source|capfirst }}</li>
+                            {% endfor %}
+                        </ul>
+                        <input type="hidden" name="from_source" id="from-source-hidden"> 
+                    </div>
+                </div>
+    
+                <!-- Swap Button -->
+                <button type="button" class="swap-btn" id="swap-btn" style="background-color: rgb(161, 156, 156);">↔️</button>
+    
+                <!-- To Location Dropdown -->
+                <div class="input-box">
+                    <b><label for="to-city">To</label></b>
+                    <div class="custom-dropdown">
+                        <b><div class="dropdown-header" id="to-city" data-placeholder="Destination City"></div></b>
+                        <ul class="dropdown-list" id="to-dropdown">
+                            {% for destination in all_destinations %}
+                                <li data-value="{{ destination }}">{{ destination|capfirst }}</li>
+                            {% endfor %}
+                        </ul>
+                        <input type="hidden" name="to_desti" id="to-desti-hidden"> 
+                    </div>
+                </div>
+    
+                <!-- Divider -->
+                <div class="divider"></div>
+    
+                <!-- Date Input -->
+                <div class="input-box">
+                    <b><label for="departure-date">Departure Date</label></b>
+                    <b><input type="text" id="departure-date" class="calendar-input" placeholder="DD-MM-YYYY"></b>
+                    <input type="hidden" name="dept_date" id="departure-date-hidden">
+                </div>
+    
+                <!-- Search Button -->
+                <button type="submit" class="search-btn">Search</button>
+            </div>
+        </form>
+    </div>
+    
+
+    <script>
+        // Initialize Flatpickr on the date input
+        flatpickr("#departure-date", {
+            dateFormat: "d-m-Y", // Date format
+            altInput: true,
+            altFormat: "F j, Y", // Alternate format displayed in the text box
+            allowInput: true,
+            minDate: "today", // Prevent past date selection
+            onChange: function(selectedDates, dateStr, instance) {
+                // Remove 'today' highlight when selecting a new date
+                document.querySelectorAll(".flatpickr-day").forEach((day) => {
+                    if (day.classList.contains("today")) {
+                        day.classList.remove("today");
+                    }
+                });
+            }
+        });
+
+       
+        
+
+
+        // Handle dropdown toggle
+        document.querySelectorAll('.custom-dropdown').forEach(function(dropdown) {
+            let header = dropdown.querySelector('.dropdown-header');
+            let list = dropdown.querySelector('.dropdown-list');
+            
+            header.addEventListener('click', function() {
+                dropdown.classList.toggle('open');
+            });
+
+            // Select dropdown item
+            list.querySelectorAll('li').forEach(function(item) {
+                item.addEventListener('click', function() {
+                    header.textContent = item.textContent;
+                    dropdown.classList.remove('open');
+                });
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!dropdown.contains(event.target)) {
+                    dropdown.classList.remove('open');
+                }
+            });
+        });
+
+        // Handle swap button click
+        document.getElementById('swap-btn').addEventListener('click', function() {
+            const fromHeader = document.getElementById('from-city');
+            const toHeader = document.getElementById('to-city');
+
+            // Swap the values
+            const temp = fromHeader.textContent;
+            fromHeader.textContent = toHeader.textContent;
+            toHeader.textContent = temp;
+            
+              // Update headers to show placeholder if empty
+              if (fromHeader.textContent === 'Destination City') {
+                fromHeader.textContent = fromHeader.dataset.placeholder;
+            }   
+            if (toHeader.textContent === 'Source City') {
+                toHeader.textContent = toHeader.dataset.placeholder;
+            }
+        });
+
+        // Set initial placeholders
+        document.getElementById('from-city').textContent = document.getElementById('from-city').dataset.placeholder;
+        document.getElementById('to-city').textContent = document.getElementById('to-city').dataset.placeholder;
+
+          //  handling recent searches
+          document.querySelector('.search-btn').addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the form from submitting
+        
+            // Get the selected values from the dropdowns
+            const fromCity = document.getElementById('from-city').textContent.trim(); // Use trim to remove extra spaces
+            const toCity = document.getElementById('to-city').textContent.trim(); // Use trim to remove extra spaces
+            const departureDate = document.getElementById('departure-date').value.trim(); // Use trim to remove extra spaces
+        
+            // Check if all fields are filled
+            if (fromCity != 'Source City' && toCity != 'Destination City' && departureDate) {
+               
+                if (fromCity !== toCity) {
+                    // Set the hidden input values
+                    document.getElementById('from-source-hidden').value = fromCity;
+                    document.getElementById('to-desti-hidden').value = toCity;
+                    document.getElementById('departure-date-hidden').value = departureDate;
+        
+                    // Submit the form
+                    document.querySelector('form').submit(); // Submit the form to the search view
+                } else {
+                    alert("Source and destination cities cannot be the same.");
+                }
+            } else {
+                alert("Please fill in all fields.");
+            }
+        });
+        
+
+        
+    </script>
+
+
+    </div>
+
+        <div id="home" class="section" >
+            <h1 class="title">
+                <b><span class="highlight">Popular</span></b> Bus Routes
+            </h1>
+
+
+            <div class="routes">
+                <div class="route">
+                    <img src="static/bangalore.jpg" alt="Bangalore">
+                    <div class="route-info">
+                        <h3>Bangalore</h3>
+                        <p>To: Hyderabad, Mumbai, Goa, Chennai, Pune</p>
+                    </div>
+                </div>
+                <div class="route">
+                    <img src="static/hyderabad.jpg" alt="Hyderabad">
+                    <div class="route-info">
+                        <h3>Hyderabad</h3>
+                        <p>To: Bangalore, Mumbai, Goa, Chennai, Pune</p>
+                    </div>
+                </div>
+                <div class="route">
+                    <img src="static/chennai.jpg" alt="Chennai">
+                    <div class="route-info">
+                        <h3>Chennai</h3>
+                        <p>To: Bangalore, Coimbatore, Hyderabad, Madurai, Tirunelveli</p>
+                    </div>
+                </div>
+                <div class="route">
+                    <img src="static/delhi.jpg" alt="Delhi">
+                    <div class="route-info">
+                        <h3>Delhi</h3>
+                        <p>To: Manali, Jaipur, Amritsar, Lucknow, Shimla</p>
+                    </div>
+                </div>
+                <div class="route">
+                    <img src="static/pune.jpg" alt="Pune">
+                    <div class="route-info">
+                        <h3>Pune</h3>
+                        <p>To: Bangalore, Goa, Indore, Nagpur, Hyderabad</p>
+                    </div>
+                </div>
+                <div class="route">
+                    <img src="static/mumbai.jpg" alt="Mumbai">
+                    <div class="route-info">
+                        <h3>Mumbai</h3>
+                        <p>To: Bangalore, Hyderabad, Indore, Goa, Pune</p>
+                    </div>
+                </div>
+                <div class="route">
+                    <img src="static/indore.jpg" alt="Indore">
+                    <div class="route-info">
+                        <h3>Indore</h3>
+                        <p>To: Mumbai, Pune, Ahmedabad, Ahmednagar, Nagpur</p>
+                    </div>
+                </div>
+                <div class="route">
+                    <img src="static/ahmedabad.jpg" alt="Ahmedabad">
+                    <div class="route-info">
+                        <h3>Ahmedabad</h3>
+                        <p>To: Porbandar, Jamnagar, Udaipur, Indore, Rajkot</p>
+                    </div>
+                </div>
+                <div class="route">
+                    <img src="static/goa.jpg" alt="Goa">
+                    <div class="route-info">
+                        <h3>Goa</h3>
+                        <p>To: Hyderabad, Bangalore, Pune, Mumbai, Kolhapur</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Divider -->
+        <div class="horizontal_divider"></div>
+
+        <!-- blog -->
+        <div class="container" id="blog" style="padding-top: 2%;" >
+            <div  >
+                <h2 class="title">
+                    <b><span class="highlight">Why</span></b> Choose blueBus for Bus Ticket Booking?
+                </h2>
+                <p class="text-content">
+                    blueBus is a wonderful platform for all bus travelers. Whether you are planning to travel to Manali or Jaipur, you can discover your favorite place through luxury and budgeted buses including sleeper, AC/NON-AC, Volvo, semi-sleeper, and room. <br><br>
+                    Our easy-to-use platform provides a hassle-free booking experience and you too can opt for bus booking online at blueBus and ditch long queues for bus tickets. Booking bus tickets online has never been this easy, but with blueBus's simple user interface, you can book bus tickets within a few clicks. <br><br>
+                    Choose from 3999+ bus operators and book bus tickets online from the comfort of your home. Download the blueBus app to book flight tickets, train tickets, and bus tickets at the lowest prices seamlessly.
+                </p>    
+            </div>
+            <div class="image-content">
+                <img src="static/bus_blog1.png" alt="Bus Image 1">
+                <img src="static/bus_blog2.png" alt="Bus Image 2">
+            </div>
+        </div>
+  
+        <!-- Divider -->
+        <div class="horizontal_divider"></div>
+
+        <!-- about -->
+        <div id="about" class="section" >
+            <h2 class="title">
+                <b><span class="highlight">Book</span></b> Your Bus Ticket with Us
+            </h2>
+            <p class="text-content">Who doesn't love exploring places by road? The captivating landscapes that are seen on both sides of the bus are the sites to behold. Travelers who love to explore places by road can choose online bus booking at blueBus and also save huge money. Why would you go out and look for a travel agency to book a tour bus when you can do it by yourself? It takes less than a minute to book a bus ticket at blueBus. The simple interface, easy navigation, and fast speed of the portal allow you to book a bus to your favorite destination within a few seconds.</p>
+            <br><br>
+            <p class="text-content">Whether you want to travel via AC/Non-AC bus, semi-sleeper bus, smart bus, deluxe bus, luxury bus, budgeted bus, or Volvo bus booking blueBus has got everything covered for you. Enjoy a hassle-free booking experience at blueBus and discover your favorite place. There are around 3999+ bus operators for online bus ticket booking at this portal, choose the best one that suits your bus ticket booking demand and enjoy your bus journey like never before!</p>
+        </div>
+
+        <!-- Divider -->
+        <div class="horizontal_divider"></div>
+
+        <!-- services -->
+        <div id="services" class="section" >
+            <h2 class="title">
+                <b><span class="highlight">Why</span></b> book with us?
+            </h2>
+            <div class="features">
+                <div class="feature">
+                    <img src="static/service1.png" alt="Lowest Ticket Charges">
+                    <h3>Lowest Ticket Charges</h3>
+                    <p>Grab huge discounts and cashbacks on your bus booking with blueBus.</p>
+                </div>
+                <div class="feature">
+                    <img src="static/service2.png" alt="3999+ Bus Operators">
+                    <h3>3999+ Bus Operators</h3>
+                    <p>Leverage our partnerships with over 3999 bus operators for a hassle-free journey.</p>
+                </div>
+                <div class="feature">
+                    <img src="static/service3.png" alt="Seamless Booking">
+                    <h3>Seamless Booking</h3>
+                    <p>Our user-friendly platform makes it easy for customers to book their bus tickets.</p>
+                </div>
+                <div class="feature">
+                    <img src="static/service4.png" alt="Trusted by 20K+ Users">
+                    <h3>Trusted by 20K+ Users</h3>
+                    <p>20K+ users have trusted and enjoyed our seamless bus booking service.</p>
+                </div>
+            </div>
+        </div>
+        
+
+       
+
+
+        <!-- to click the nav btn and go to specific place eg:home,... -->
+        <script>
+            // Smooth scrolling function for older browsers
+            document.querySelectorAll('.link a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+        
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+        
+                    if (targetElement) {
+                        // Scroll smoothly to the target section
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 50, // Adjust offset for fixed navbar
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        </script>
+
+
+
+
+        <footer>
+            <h1>AB Developers</h1>
+            <p>Since September,2024</p>
+            
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-google"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+            
+            <div class="copyright">
+                <a href="#" style="color: #2a4fa6;">+91 9874563210</a>&nbsp;&nbsp;
+                <a href="#" style="color: #2a4fa6;">abdevelopers@gmail.com</a>   
+            </div>
+            
+            <div class="links">
+                <a href="#home">Home</a>
+                <a href="#blog">Blog</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+            </div>
+    
+            <div class="copyright">
+                Copyright ©2021 <a href="#" style="color: #2a4fa6;">ABdevelopers</a>
+            </div>
+        </footer>
+    
+
+
+
+        <!-- FontAwesome for social media icons -->
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+</body>
+</html>
+

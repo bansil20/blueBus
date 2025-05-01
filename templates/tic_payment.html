@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Payment</title>
+    <link rel="icon" href="{% static 'title_logo2.png' %}" type="image/png">
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            background-color: #fff;
+        }
+        
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 150px;
+            background-color: #f8f9fa;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative; /* Added for bus animation */
+        }
+
+        .navbar img {
+            height: 80px;
+        }
+        
+                
+        nav .links {
+            display: flex;
+        }
+        
+        nav .links a{
+            color: black;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 0 10px;
+        }
+        
+        nav .links a:hover{
+            text-decoration: underline;
+        }
+        
+        nav .buttons{
+            width: 250px;
+            height: 10vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        nav .buttons button{
+            margin: 0 5px;
+            width: 40%;
+            height: 5vh;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            background-color: rgb(7,113,219);
+            transition: 0.2s linear;
+        }
+        
+        .buttons button:hover{
+            color: rgb(7,113,219);
+            background-color: transparent;
+            border: 2px solid rgb(7,113,219);
+            box-shadow: 0 0 10px 4px rgb(7,113,219);
+        }
+        
+        
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar li {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .navbar a {
+            color: black;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+
+        .navbar a:hover {
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+
+        
+
+
+        /* Dropdown Styling */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            background-color: #ffffff;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            min-width: 180px;
+            border: 1px solid #ccc; /* Adding border for clarity */
+            
+            
+        }
+
+        .dropdown img{
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            vertical-align: middle; /* Align image and text in the middle */
+        }
+
+        .dropdown a {
+            padding: 10px 20px;
+            white-space: nowrap;
+            
+        }
+
+        .navbar li:hover .dropdown {
+            display: block;
+        }
+
+        /* Login button styling */
+        .login > a {
+            background-color: #2a4fa6;
+            color: white;
+            border-radius: 40px;
+            padding: 10px 20px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .login > a:hover {
+            background-color: #2a4fa6;
+            border-radius: 40px;
+        }
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .ticket-container {
+            width: 140%;
+            
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .ticket-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #e8f4fd;
+            border-radius: 6px;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+        }
+        .ticket-header h2 {
+            font-size: 18px;
+            margin: 0;
+            color: #0369a1;
+        }
+        .departure_date {
+            font-size: 14px;
+            color: #0369a1;
+            background-color: #d8ecfa;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .ticket-header span {
+            font-size: 14px;
+            color: #0369a1;
+            background-color: #d8ecfa;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .ticket-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+        .ticket-info div {
+            text-align: center;
+        }
+        .ticket-info h3 {
+            font-size: 16px;
+            margin: 0;
+            color: #444;
+        }
+        .ticket-info span {
+            display: block;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .details-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: flex-start; /* Align items at the top */
+            margin-top: 20px;
+        }
+
+        .timeline {
+            flex: 2;
+            margin: 20px 0;
+            border-left: 2px dashed #a0aec0;
+            padding-left: 15px;
+        }
+        .timeline div {
+            margin-bottom: 15px;
+        }
+        .timeline div h4 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .timeline div p {
+            margin: 4px 0 0 0;
+            font-size: 12px;
+            color: #718096;
+        }
+        .operator-info {
+            flex: 1; /* Adjust based on space needs */
+            text-align: left; /* Align text properly */
+            margin-top: 20px;
+            text-align: left;
+            border-left: 2px dashed #a0aec0;
+            padding-left: 15px;
+        }
+        .operator-info span {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #2b6cb0;
+        }
+         /* Ticket and Payment Section Container */
+         .container {
+            width: 80%;
+            display: flex;
+            justify-content: space-between;
+            max-width: 80%;
+            margin: 40px auto;
+            gap: 20px;
+            
+        }
+
+        /* Payment Box Styling */
+        .payment-box {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 2px 4px 8px 2px rgba(0, 0, 0, 0.1);
+            width: 22%;
+        }
+
+        .payment-box h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #0369a1;
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .payment-box .price-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .payment-box .price-item span {
+            font-weight: bold;
+        }
+
+        .payment-box .price-total {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2a9df4;
+            margin-top: 15px;
+        }
+
+        .payment-box .coupon {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .payment-box .coupon input {
+            width: 70%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .payment-box .coupon button {
+            background-color: #0369a1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        .payment-box .coupon button:hover {
+            background-color: #025d8c;
+        }
+
+
+
+
+
+
+
+        .travellers-details {
+            background-color: #f8fbff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 100%;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #e8f4fd;
+            border-radius: 6px;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+        }
+        
+        .header .icon img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .header .title h3 {
+            margin: 0;
+            color: #0369a1;
+        }
+        
+        .header .info {
+            font-size: 14px;
+            color: #888;
+        }
+        
+        .details-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+        
+        .field {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .field label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .field input, .field select {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px;
+            font-size: 14px;
+        }
+        
+        .field input:focus, .field select:focus {
+            border-color: #2a9df4;
+            outline: none;
+        }
+        
+        .field.seat .seat-box {
+            background-color: #fce4ec;
+            color: #e91e63;
+            border-radius: 4px;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+
+
+
+
+
+
+
+
+
+        .form-container {
+            padding-left: 30%;
+            padding-bottom: 6%;
+            border-radius: 8px;
+            width: 40%;
+        }
+        .form-container h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .form-container p {
+            font-size: 14px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .form-row input {
+            width: 40%;
+            padding: 1.5%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-container label {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .form-container label input {
+            margin-right: 8px;
+        }
+        .form-container label a {
+            color: #007bff;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+        .form-container label a:hover {
+            text-decoration: underline;
+        }
+        .form-container button {
+            background: #e77b33;
+            color: white;
+            border: none;
+            border-radius: 14px; /* Makes the corners more curved */
+            padding: 10px 20px;
+            font-size: 16px;
+            width: 50%; /* Set width of the button */
+            margin: 0 auto; /* Center the button horizontally */
+            display: block; /* Required for `margin: 0 auto` to work */
+            transition: background-color 0.3s ease;
+            text-align: center; /* Center the text inside the button */
+        }
+        
+        .form-container button:hover {
+            background: #e65c00;
+        }
+
+
+
+
+
+
+        .qr-code {
+            text-align: center;
+            
+        }
+        
+        .qr-code img {
+            max-width: 200px;
+            height: auto;
+        }
+
+
+
+
+
+
+
+
+        .tic_div{
+            padding-left: 10%;
+        }
+
+        .ticket-details {
+            background-color: #f8fbff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+       
+    
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+
+
+
+            width: 89%;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, #cce5ff, #d9f0ff);
+            padding: 15px 20px;
+            position: relative;
+        }
+        
+        .header h2 {
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .edit-btn {
+            background-color: #1da1f2;
+            color: #fff;
+            font-size: 14px;
+            padding: 5px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-btn:hover {
+            background-color: #0d8ce5;
+        }
+        
+        .details {
+            display: flex;
+            padding: 20px;
+        }
+        
+        .column {
+            flex: 1;
+            padding-right: 20px;
+        }
+        
+        .column h4 {
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .column p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+
+        .alert {
+            padding: 20px;
+            background-color: #4CAF50; /* Green color for success */
+            color: white;
+            opacity: 1;
+            transition: opacity 0.6s;
+            margin-bottom: 15px;
+            position: fixed; /* Fixed position */
+            top: 10px; /* Position it at the top */
+            left: 50%; /* Center it horizontally */
+            transform: translateX(-50%); /* Adjust centering */
+            width: 80%; /* You can adjust the width */
+            z-index: 9999; /* Make sure it's on top */
+            border-radius: 20px;
+        }
+    
+        .alert.success {background-color: #4CAF50;} /* Green color for success */
+        
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+    
+        .closebtn:hover {
+            color: black;
+        }
+   
+        
+
+
+        
+    </style>
+</head>
+<body>
+    
+
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="Logo" onclick="goToDashboard()">
+            </div>
+            <script>
+                function goToDashboard() {
+                    window.location.href = '/dashboard';
+                }
+            </script>
+    
+            <ul>
+                <li class="login">
+                    {% if user.is_authenticated %}
+                    <li class="link">Hello, {{ user.username|capfirst  }}</li>
+                    <a href="#" id="logout-button">Book seamlessly</a>  
+
+                    <!-- {% url 'logoutpage' %} -->
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const logoutButton = document.getElementById('logout-button');
+                            if (logoutButton) {
+                                logoutButton.addEventListener('click', function () {
+                                    localStorage.removeItem('recentSearches'); // Clear recent searches from local storage
+                                });
+                            }
+                        });
+                    </script>   
+                    {% else %}
+                    <a href="loginreg" id="loginBtn">Login/Signup</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+        
+
+
+        <div class="container">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="ticket-container">
+                    <div class="ticket-header">
+                        <h2>Bus Details</h2>
+                        <span>{{currentDate}}</span>
+                    </div>
+                    <div class="ticket-info">
+                        <div>
+                            <h3>{{ from_source|capfirst }} → {{ to_desti|capfirst }}</h3>
+                            <span class="departure_date">{{currentDate}}</span>
+                        </div>
+                        <div>
+                            <h3>Departure Time</h3>
+                            <span>{{departure_time}}</span>
+                        </div>
+                        <div>
+                            <h3>Arrival Time</h3>
+                            <span>{{arrival_time}}</span>
+                        </div>
+                        <div>
+                            <h3>Seat no(s)</h3>
+                            <span>{{selected_seats|join:", "}}</span>
+                        </div>
+                        <div>
+                            <h3>No of Passenger(s)</h3>
+                            <span>{{passengers}}</span>
+                        </div>
+                    </div>
+                    <div class="details-container">
+                        <div class="timeline">
+                            <div>
+                                <h4>Boarding Time & Address</h4>
+                                <p>{{departure_time}} - {{ from_source|upper }} BUS PARKING</p>
+                            </div>
+                            <div>
+                                <h4>Dropping Time & Address</h4>
+                                <p>{{arrival_time}} - {{ to_desti|upper }} BUS PARKING</p>
+                            </div>
+                        </div>
+                        <div class="operator-info">
+                            <span>Bus Operator</span>
+                            <h4>{{ bus_name|capfirst }}</h4>
+                            <span>2 X 1 (36) {{bus_ac_check_text}} {{bus_sleeper_seater_text}}</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Payment Summary -->
+            <div class="payment-box">
+                <h3>Price Summary</h3>
+                <br><br>
+                <div class="price-item">
+                    <span>Base Fare :</span>
+                    <span>₹{{bus_price}}</span>
+                </div>
+                <br>
+                <div class="price-item">
+                    <span>GST :</span>
+                    <span>₹{{gst}}</span>
+                </div>
+                <br><br>
+                <div class="price-total">Grand Total: ₹{{grand_total}}</div>
+                
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="travellers-details">
+                <div class="header">
+                    <div class="title">
+                        <h3>Travellers Details</h3>
+                    </div>
+                    <div class="info">
+                        <span>👤 Name should be same as in Government ID proof</span>
+                    </div>
+                </div>
+                {% for i in range_passenger %}
+                <div class="details-row">
+                    <div class="field">
+                        <label>Title</label>
+                        <select id="title-{{ i }}" required>
+                            <option>Mr</option>
+                            <option>Ms</option>
+                            <option>Mrs</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>First Name</label>
+                        <input type="text" id="first-name-{{ i }}" placeholder="First Name" required/>
+                    </div>
+                    <div class="field">
+                        <label>Last Name</label>
+                        <input type="text" id="last-name-{{ i }}" placeholder="Last Name" required/>
+                    </div>
+                    <div class="field">
+                        <label>Age</label>
+                        <input type="number" id="age-{{ i }}" placeholder="Age" required/>
+                    </div>
+                </div>
+                <br>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div id="form-section" class="form-container">
+            <h2>Enter Your Mobile Number and Email</h2>
+            <p>Your information will be used only for sending bus-related communication.</p>
+            <div class="form-row">
+                <input type="text" id="phone-number" placeholder="Mobile Number" aria-label="Mobile Number" required>
+                <input type="email" id="email-id" placeholder="Email ID" aria-label="Email ID" required>
+            </div>
+            <button id="continue-button">Make Payment</button>
+        </div>
+        
+
+
+
+        <div class="tic_div">
+            <div id="ticket-details" class="ticket-details" style="display: none;">
+                <div class="header">
+                    <h2>Ticket Details</h2>
+                    <button class="edit-btn" onclick="editDetails()">Edit</button>
+                </div>
+                <div class="details">
+                    <div class="column">
+                        <h4>Adult</h4>
+                        <p id="display-name"></p>
+                        <h4>E-mail</h4>
+                        <p id="display-email"></p>
+                    </div>
+                    <div class="column">
+                        <h4>Age</h4>
+                        <p id="display-age"></p>
+                        <h4>Contact No.</h4>
+                        <p id="display-phone"></p>
+                    </div>
+                    <div class="column">
+                        <h4>Seats No.</h4>
+                        <p>{{selected_seats|join:", "}}</p>
+                        
+                    </div>
+                    <div class="qr-code">
+                        
+                        <h4>Scan to Pay via UPI</h4>
+                        <!-- Embed the QR code for Google Pay UPI payment -->
+                        <img src="data:image/png;base64,{{ qr_code }}" alt="Payment QR  Code" id="qrCodeImage" style="cursor: pointer;">
+
+                        <!-- Hidden form for email submission -->
+                        <form id="emailForm" method="POST" action="{% url 'send_payment_confirmation'  busId%}" style="display: none;">
+                            {% csrf_token %}
+                            <input type="hidden" name="bus_price" value="{{bus_price}}">
+                            <input type="hidden" name="selected_seats" id="selected-seats-input-{{ busId }}" value="{{ selected_seats|join:',' }}">
+
+                            <input type="hidden" name="email" id="emailField" value="{{ user_email }}">
+                            <input type="hidden" name="phone" id="phoneField" value="{{ user_phone }}">
+                            <input type="hidden" name="seat" id="seatField" value="{{ selected_seats|join:',' }}">
+                            <input type="hidden" name="from_source" id="from_destiField" value="{{ from_source|capfirst }}">
+                            <input type="hidden" name="to_desti" id="phoneField" value="{{ to_desti|capfirst }}">
+                        </form>
+
+                        <!-- <form method="POST" action="{% url 'book_seats' bus_id=0 %}" style="display: none;">
+                            {% csrf_token %}
+                                    <input type="hidden" name="bus_price" value="{{bus_price}}">
+                                    <input type="hidden" name="selected_seats" id="selected-seats-input-{{ bus_id }}">
+                        </form> -->
+                    
+                         <!-- Provide the UPI payment link as a button or clickable link -->
+                        <div class="upi-link">
+                            <a href="{{ upi_url }}" target="_blank" class="pay-button">
+                                Pay ₹{{ grand_total }} via UPI
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+        <!-- Alert Section -->
+        <div id="alertBox" class="alert success" style="display: none;">
+            <span class="closebtn">&times;</span>
+            <strong>whoo who!</strong> Ticket booked successfully. 
+        </div>
+
+
+
+
+        <script>
+            // Add a click event listener to the QR code image
+            document.getElementById('qrCodeImage').addEventListener('click', function () {
+
+
+                // Get the user's email and phone number
+                const email = document.getElementById("display-email").textContent.trim();
+                const phone = document.getElementById("display-phone").textContent.trim();
+        
+                if (!email || !phone) {
+                    alert("Email or phone number is missing. Please fill out the details.");
+                    return;
+                }
+
+
+
+                // Get the selected seats from the input field
+                const selectedSeats = document.getElementById("selected-seats-input-{{ busId }}").value;
+                
+                if (!selectedSeats || selectedSeats.trim() === "") {
+                    alert("No seats selected. Please select some seats.");
+                    return;
+                }
+                    
+                // Update the hidden form fields
+                document.getElementById("emailField").value = email;
+                document.getElementById("phoneField").value = phone;
+
+                  // Display the green success alert
+                const alertBox = document.getElementById('alertBox');
+                alertBox.style.display = 'block';
+
+                // Close button functionality
+                const closeBtn = document.getElementsByClassName("closebtn")[0];
+                closeBtn.onclick = function () {
+                    alertBox.style.opacity = "0";
+                    setTimeout(() => { alertBox.style.display = "none"; }, 900);
+                };
+        
+                // Submit the hidden form to send the email
+                document.getElementById("emailForm").submit();
+            });
+
+            
+
+              
+        </script>
+        
+        
+        <script>
+            // Select all required fields
+            const requiredInputs = document.querySelectorAll('input[required], select[required]');
+            const continueButton = document.getElementById('continue-button');
+        
+            // Function to check if all fields are filled
+            function validateForm() {
+                let allFilled = true;
+                requiredInputs.forEach((input) => {
+                    if (!input.value.trim()) {
+                        allFilled = false;
+                    }
+                });
+        
+                if (allFilled) {
+                    continueButton.classList.add('active');
+                    continueButton.classList.remove('inactive');
+                    continueButton.disabled = false;
+                } else {
+                    continueButton.classList.remove('active');
+                    continueButton.classList.add('inactive');
+                    continueButton.disabled = true;
+                }
+            }
+        
+            //  event listeners to all required fields
+            requiredInputs.forEach((input) => {
+                input.addEventListener('input', validateForm);
+            });
+        
+            //  click event listener to the continue button
+            continueButton.addEventListener('click', (e) => {
+                let allValid = true;
+                requiredInputs.forEach((input) => {
+                    if (!input.value.trim()) {
+                        allValid = false;
+                    }
+                });
+        
+                if (!allValid) {
+                    e.preventDefault(); // Prevent default action if fields are invalid
+                    alert("Please fill all required details before continuing.");
+                    return; // Exit if validation fails
+                }
+
+                // Collect details for each passenger
+                const passengers = document.querySelectorAll('.details-row'); // Select all passenger rows
+                const detailsContainer = document.getElementById("ticket-details"); // The container where we want to display details
+
+                // Clear the previous details before adding new ones
+                const nameDisplayContainer = document.getElementById("display-name");
+                const ageDisplayContainer = document.getElementById("display-age");
+                nameDisplayContainer.innerHTML = '';  // Clear name section
+                ageDisplayContainer.innerHTML = '';   // Clear age section
+
+                // Loop through each passenger and update details
+                passengers.forEach((row, index) => {
+                    const title = row.querySelector('select').value;
+                    const firstName = row.querySelector(`#first-name-${index}`).value;
+                    const lastName = row.querySelector(`#last-name-${index}`).value;
+                    const age = row.querySelector(`#age-${index}`).value;
+                    const fullName = `${title} ${firstName} ${lastName}`;
+
+                    // Dynamically create elements for each passenger
+                    const nameParagraph = document.createElement("p");
+                    nameParagraph.textContent = fullName;
+                    nameDisplayContainer.appendChild(nameParagraph);  //  full name to the display
+
+                    const ageParagraph = document.createElement("p");
+                    ageParagraph.textContent = age;
+                    ageDisplayContainer.appendChild(ageParagraph);  //  age to the display
+                });
+
+                // Get user input values for phone and email
+                const phoneNumber = document.getElementById("phone-number").value;
+                const emailId = document.getElementById("email-id").value;
+
+                // Check if both fields are filled
+                if (!phoneNumber || !emailId) {
+                    alert("Please fill all required details before continuing.");
+                    return; // Exit if fields are not filled
+                }
+
+                // Update the traveller details section for phone and email
+                document.getElementById("display-phone").textContent = phoneNumber;
+                document.getElementById("display-email").textContent = emailId;
+
+                // Hide the form section and show the traveller details section
+                document.getElementById("form-section").style.display = "none";
+                document.getElementById("ticket-details").style.display = "block";
+            });
+        
+            // Function to edit details
+            function editDetails() {
+                // Show the form section and hide the traveller details section
+                document.getElementById("form-section").style.display = "block";
+                document.getElementById("ticket-details").style.display = "none";
+            }
+        </script>
+        
+
+
+
+        
+
+
+</body>
+</html>
